@@ -1,6 +1,6 @@
 import { TUser } from '@utils-types';
 import { AppDispatch } from '../store';
-import { deleteCookie, getCookie, setCookie } from 'src/utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getUserApi,

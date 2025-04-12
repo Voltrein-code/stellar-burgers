@@ -1,21 +1,30 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  constructorSelector,
+  orderDataSelector,
+  orderIsLoadingSelector,
+  userDataSelector
+} from '@selectors';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
+  const constructorItems = useSelector(constructorSelector);
+  const orderRequest = useSelector(orderIsLoadingSelector);
+  const orderModalData = useSelector(orderDataSelector);
+  const user = useSelector(userDataSelector);
 
-  const orderRequest = false;
-
-  const orderModalData = null;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onOrderClick = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     if (!constructorItems.bun || orderRequest) return;
   };
   const closeOrderModal = () => {};
