@@ -9,6 +9,7 @@ import {
   userDataSelector
 } from '@selectors';
 import { useNavigate } from 'react-router-dom';
+import { createOrder, resetOrder } from '../../services/slices/order-slice';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(constructorSelector);
@@ -26,8 +27,19 @@ export const BurgerConstructor: FC = () => {
     }
 
     if (!constructorItems.bun || orderRequest) return;
+
+    dispatch(
+      createOrder([
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map(
+          (i: TConstructorIngredient) => i._id
+        ),
+        constructorItems.bun._id
+      ])
+    );
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => dispatch(resetOrder());
 
   const price = useMemo(
     () =>
@@ -38,8 +50,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  return null;
 
   return (
     <BurgerConstructorUI
