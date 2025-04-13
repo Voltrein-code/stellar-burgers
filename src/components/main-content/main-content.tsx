@@ -85,7 +85,7 @@ const MainContent: FC = () => {
         <Route
           path='/profile'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
@@ -93,7 +93,7 @@ const MainContent: FC = () => {
         <Route
           path='/profile/orders'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <ProfileOrders />
             </ProtectedRoute>
           }
@@ -101,13 +101,13 @@ const MainContent: FC = () => {
         <Route
           path='*'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <div className={styles.detailPageWrap}>
               <NotFound404 />
-            </ProtectedRoute>
+            </div>
           }
         />
         <Route
-          path='/feed/:number'
+          path='/ingredients/:id'
           element={
             <div className={styles.detailPageWrap}>
               <p className={`text text_type_main-large ${styles.detailHeader}`}>
