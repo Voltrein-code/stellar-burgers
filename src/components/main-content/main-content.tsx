@@ -34,9 +34,10 @@ const MainContent: FC = () => {
   const background =
     location.state && (location.state as { background?: Location }).background;
 
-  const orderNumber =
-    useMatch('/profile/order/:number')?.params.number ||
-    useMatch('/feed/:number')?.params.number;
+  const orderNumberFromProfile = useMatch('/profile/orders/:number')?.params
+    .number;
+  const orderNumberFromFeed = useMatch('/feed/:number')?.params.number;
+  const orderNumber = orderNumberFromProfile || orderNumberFromFeed;
 
   useEffect(() => {
     dispatch(checkUserAuth());
